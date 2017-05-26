@@ -39,7 +39,7 @@ public class GlobalNavigationController: UINavigationController, UINavigationCon
     
     //MARK:- variables
     public var controllers: [LogicalController] = []
-    private var onSuccessfullTransition: [(() -> Void)] = []
+    private var transitionControllers: [LogicalController] = []
     
     //MARK:- override every possible place where viewControllers change
     public func pushLogicalController(_ logicalController: LogicalController, animated: Bool) {
@@ -67,27 +67,21 @@ public class GlobalNavigationController: UINavigationController, UINavigationCon
     public override func popViewController(animated: Bool) -> UIViewController? {
         print("pop. vcs count: \(self.viewControllers.count), lcs count: \(self.controllers.count)")
         let poppedController = super.popViewController(animated: animated)
-        self.onSuccessfullTransition.append {
-            poppedController.map { self.removePoppedVCs([$0]) }
-        }
+        poppedController.map { self.removePoppedVCs([$0]) }
         return poppedController
     }
     
     public override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
         print("popTo. vcs count: \(self.viewControllers.count), lcs count: \(self.controllers.count)")
         let poppedControllers = super.popToViewController(viewController, animated: animated)
-        self.onSuccessfullTransition.append {
-            self.removePoppedVCs(poppedControllers)
-        }
+        self.removePoppedVCs(poppedControllers)
         return poppedControllers
     }
     
     public override func popToRootViewController(animated: Bool) -> [UIViewController]? {
         print("poptoroot. vcs count: \(self.viewControllers.count), lcs count: \(self.controllers.count)")
         let poppedControllers = super.popToRootViewController(animated: animated)
-        self.onSuccessfullTransition.append {
-            self.removePoppedVCs(poppedControllers)
-        }
+        self.removePoppedVCs(poppedControllers)
         return poppedControllers
     }
     
@@ -95,32 +89,36 @@ public class GlobalNavigationController: UINavigationController, UINavigationCon
     public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if let coordinator = navigationController.topViewController?.transitionCoordinator {
             coordinator.notifyWhenInteractionChanges({ (context) in
-                // first, we get here and check if we cancelled transition
                 if context.isCancelled {
-                    self.onSuccessfullTransition = []
+                    self.controllers += self.transitionControllers
+                    self.transitionControllers = []
                 }
             })
+            
             coordinator.animate(alongsideTransition: { (_) in
                 
             }, completion: { (_) in
-                // second, we get here and do block (it will be nil if transition is cancelled)
-                for block in self.onSuccessfullTransition {
-                    block()
-                }
-                self.onSuccessfullTransition = []
+                self.transitionControllers = []
             })
         }
     }
     
     //MARK:- internal FNs
     private func removePoppedVCs(_ poppedControllers: [UIViewController]?) {
-        let newControllers = self.controllers.filter { (logicalController) -> Bool in
+        var transitionControllers: [LogicalController] = []
+        var newControllers: [LogicalController] = []
+        for logicalController in self.controllers {
             let isPopped = poppedControllers?.first(where: { (vc) -> Bool in
                 return logicalController.mainVC == vc
             }) != nil
-            return !isPopped
+            if isPopped {
+                transitionControllers.append(logicalController)
+            } else {
+                newControllers.append(logicalController)
+            }
         }
         self.controllers = newControllers
+        self.transitionControllers = transitionControllers
     }
 }
 

@@ -113,6 +113,9 @@ public class GlobalNavigation {
                 if lc.maybeNavigation() != nil {
                     return "NC"
                 } else {
+                    if lc.mainVC == lc as? UIViewController {
+                        return "VC"
+                    }
                     return "LC"
                 }
             })

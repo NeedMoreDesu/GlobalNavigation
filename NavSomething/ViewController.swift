@@ -27,9 +27,6 @@ class ViewController: UIViewController {
     //MARK:- UI
     func updateUI() {
         self.textView.text = GlobalNavigation.shared.debugShowBigPicture()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.textView.text = GlobalNavigation.shared.debugShowBigPicture()
-        }
     }
     
     //MARK:- actions
