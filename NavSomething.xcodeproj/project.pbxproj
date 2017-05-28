@@ -18,6 +18,8 @@
 		A1B30FC11ED7562F00E5324A /* GlobalNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B30FBF1ED7562F00E5324A /* GlobalNavigationController.swift */; };
 		A1B30FC31ED756A400E5324A /* LogicalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B30FC21ED756A400E5324A /* LogicalController.swift */; };
 		A1B30FC51ED75A0300E5324A /* GlobalNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B30FC41ED75A0300E5324A /* GlobalNavigation.swift */; };
+		A1DB5BCC1EDADAE100AF92B9 /* WZProtocolInterceptor.h in Headers */ = {isa = PBXBuildFile; fileRef = A1DB5BCA1EDADAE100AF92B9 /* WZProtocolInterceptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A1DB5BCD1EDADAE100AF92B9 /* WZProtocolInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DB5BCB1EDADAE100AF92B9 /* WZProtocolInterceptor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		A1B30FBF1ED7562F00E5324A /* GlobalNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalNavigationController.swift; sourceTree = "<group>"; };
 		A1B30FC21ED756A400E5324A /* LogicalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicalController.swift; sourceTree = "<group>"; };
 		A1B30FC41ED75A0300E5324A /* GlobalNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalNavigation.swift; sourceTree = "<group>"; };
+		A1DB5BCA1EDADAE100AF92B9 /* WZProtocolInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZProtocolInterceptor.h; sourceTree = "<group>"; };
+		A1DB5BCB1EDADAE100AF92B9 /* WZProtocolInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZProtocolInterceptor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,7 @@
 		A1B30FB21ED7561A00E5324A /* GlobalNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				A1DB5BC91EDADAC700AF92B9 /* Utility */,
 				A1B30FC41ED75A0300E5324A /* GlobalNavigation.swift */,
 				A1B30FC21ED756A400E5324A /* LogicalController.swift */,
 				A1B30FBF1ED7562F00E5324A /* GlobalNavigationController.swift */,
@@ -120,6 +125,15 @@
 				A1B30FB41ED7561A00E5324A /* Info.plist */,
 			);
 			path = GlobalNavigation;
+			sourceTree = "<group>";
+		};
+		A1DB5BC91EDADAC700AF92B9 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				A1DB5BCA1EDADAE100AF92B9 /* WZProtocolInterceptor.h */,
+				A1DB5BCB1EDADAE100AF92B9 /* WZProtocolInterceptor.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1B30FB51ED7561A00E5324A /* GlobalNavigation.h in Headers */,
+				A1DB5BCC1EDADAE100AF92B9 /* WZProtocolInterceptor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1DB5BCD1EDADAE100AF92B9 /* WZProtocolInterceptor.m in Sources */,
 				A1B30FC11ED7562F00E5324A /* GlobalNavigationController.swift in Sources */,
 				A1B30FC31ED756A400E5324A /* LogicalController.swift in Sources */,
 				A1B30FC51ED75A0300E5324A /* GlobalNavigation.swift in Sources */,
@@ -468,6 +484,7 @@
 				A1B30FAA1ED7559100E5324A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A1B30FBA1ED7561A00E5324A /* Build configuration list for PBXNativeTarget "GlobalNavigation" */ = {
 			isa = XCConfigurationList;
@@ -476,6 +493,7 @@
 				A1B30FBC1ED7561A00E5324A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

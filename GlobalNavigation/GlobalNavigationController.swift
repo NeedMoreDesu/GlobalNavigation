@@ -33,13 +33,26 @@ public class GlobalNavigationController: UINavigationController, UINavigationCon
     //MARK:- lifecycle
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.delegate = self
     }
     
     //MARK:- variables
     public var controllers: [LogicalController] = []
     private var transitionControllers: [LogicalController] = []
+    private lazy var delegateInterceptor: WZProtocolInterceptor = {
+        let interceptor = WZProtocolInterceptor.init(interceptedProtocol: UINavigationControllerDelegate.self)
+        interceptor?.middleMan = self
+        return interceptor!
+    }()
+    
+    //MARK:- override delegate
+    override public var delegate: UINavigationControllerDelegate? {
+        set {
+            self.delegateInterceptor.receiver = newValue
+        }
+        get {
+            return self.delegateInterceptor
+        }
+    }
     
     //MARK:- override every possible place where viewControllers change
     public func pushLogicalController(_ logicalController: LogicalController, animated: Bool) {
@@ -101,6 +114,9 @@ public class GlobalNavigationController: UINavigationController, UINavigationCon
                 self.transitionControllers = []
             })
         }
+        if let interceptor = self.delegate as? WZProtocolInterceptor {
+            interceptor.receiver?.navigationController?(navigationController, willShow: viewController, animated: animated)
+        }
     }
     
     //MARK:- internal FNs
@@ -126,4 +142,8 @@ public extension LogicalController {
     func maybeNavigation() -> GlobalNavigationController? {
         return self.mainVC as? GlobalNavigationController
     }
+}
+
+extension WZProtocolInterceptor: UINavigationControllerDelegate {
+    
 }

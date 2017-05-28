@@ -54,7 +54,5 @@ class ViewController: UIViewController {
     @IBAction func dismissClicked(_ sender: Any) {
         GlobalNavigation.shared.back(.modally(animated: true, completion: nil))
     }
-    
-
 }
 

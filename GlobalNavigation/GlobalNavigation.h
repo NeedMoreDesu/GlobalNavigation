@@ -14,3 +14,4 @@ FOUNDATION_EXPORT double GlobalNavigationVersionNumber;
 //! Project version string for GlobalNavigation.
 FOUNDATION_EXPORT const unsigned char GlobalNavigationVersionString[];
 
+#import <GlobalNavigation/WZProtocolInterceptor.h>
